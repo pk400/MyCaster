@@ -9,6 +9,10 @@ import android.view.MenuItem;
 
 public class SunRiseSet extends Activity {
 
+    public SunRiseSet() {
+        super();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

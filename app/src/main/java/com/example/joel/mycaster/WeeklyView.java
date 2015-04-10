@@ -11,6 +11,10 @@ public class WeeklyView extends Activity {
 
     XMLData data;
 
+    public WeeklyView() {
+        super();
+    }
+
     public WeeklyView(XMLData data) {
         this.data = data;
     }
