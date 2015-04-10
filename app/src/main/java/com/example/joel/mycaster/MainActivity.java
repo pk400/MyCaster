@@ -197,14 +197,17 @@ public class MainActivity extends Activity {
         //if weather is sunny/cloudy/clear/etc.
         weatherIconIV.setImageResource(R.drawable.sunny);
 
-        if(data.getWarningPriority().equals("low")) {
-            warningsTV.setTextColor(Color.GREEN);
-        } else if(data.getWarningPriority().equals("medium")) {
-            warningsTV.setTextColor(Color.YELLOW);
-        } else if(data.getWarningPriority().equals("high")) {
-            warningsTV.setTextColor(Color.RED);
+
+        if(data.getWarningPriority() != null) {
+            if (data.getWarningPriority().equals("low")) {
+                warningsTV.setTextColor(Color.GREEN);
+            } else if (data.getWarningPriority().equals("medium")) {
+                warningsTV.setTextColor(Color.YELLOW);
+            } else if (data.getWarningPriority().equals("high")) {
+                warningsTV.setTextColor(Color.RED);
+            }
+            warningsTV.setText(data.getWarningDescription());
         }
-        warningsTV.setText(data.getWarningDescription());
 
         weeklyViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override

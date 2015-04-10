@@ -80,14 +80,20 @@ public class XMLHandler extends DefaultHandler {
             }
         }
 
-        if(localName.equals("condition")) {
-            if(inCurrentConditions)
-                data.setCurrentCondition(content.toString());
-        } else if(localName.equals("temperature")) {
-            if(inCurrentConditions) {
-                data.setCurrentTemperature(content.toString());
-                inCurrentConditions = false;
-            }
+        if(inCurrentConditions) {
+            if (localName.equals("condition")) {
+                //if (inCurrentConditions)
+                    data.setCurrentCondition(content.toString());
+            } else if (localName.equals("temperature")) {
+                //if (inCurrentConditions) {
+                    data.setCurrentTemperature(content.toString());
+                    inCurrentConditions = false;
+                //}
+            }/* else if(localName.equals("speed")) {
+                if(inCurrentConditions) {
+
+                }
+            }*/
         }
     }
 
