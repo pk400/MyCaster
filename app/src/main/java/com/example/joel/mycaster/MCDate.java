@@ -1,5 +1,7 @@
 package com.example.joel.mycaster;
 
+import android.util.Log;
+
 import java.util.Calendar;
 
 /**
@@ -12,26 +14,18 @@ public class MCDate {
         c = Calendar.getInstance();
     }
 
-    public long getLastUpdatedTimer() {
-        return c.get(Calendar.DATE);
-    }
-
-    public long timeNow() {
-        return c.get(Calendar.MINUTE);
-    }
-
     public String getTodaysDate() {
         StringBuilder todaysDateStr = new StringBuilder();
 
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         switch(dayOfWeek) {
-            case 0: todaysDateStr.append("Saturday");  break;
-            case 1: todaysDateStr.append("Sunday");    break;
-            case 2: todaysDateStr.append("Monday");    break;
-            case 3: todaysDateStr.append("Tuesday");   break;
-            case 4: todaysDateStr.append("Wednesday"); break;
-            case 5: todaysDateStr.append("Thursday");  break;
-            case 6: todaysDateStr.append("Friday");    break;
+            case Calendar.SATURDAY: todaysDateStr.append("Saturday");  break;
+            case Calendar.SUNDAY: todaysDateStr.append("Sunday");    break;
+            case Calendar.MONDAY: todaysDateStr.append("Monday");    break;
+            case Calendar.TUESDAY: todaysDateStr.append("Tuesday");   break;
+            case Calendar.WEDNESDAY: todaysDateStr.append("Wednesday"); break;
+            case Calendar.THURSDAY: todaysDateStr.append("Thursday");  break;
+            case Calendar.FRIDAY:   todaysDateStr.append("Friday");    break;
         }
 
         todaysDateStr.append(", ");

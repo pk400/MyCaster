@@ -80,20 +80,29 @@ public class XMLHandler extends DefaultHandler {
             }
         }
 
-        if(inCurrentConditions) {
-            if (localName.equals("condition")) {
-                //if (inCurrentConditions)
-                    data.setCurrentCondition(content.toString());
-            } else if (localName.equals("temperature")) {
-                //if (inCurrentConditions) {
-                    data.setCurrentTemperature(content.toString());
-                    inCurrentConditions = false;
-                //}
-            }/* else if(localName.equals("speed")) {
-                if(inCurrentConditions) {
 
-                }
-            }*/
+        if(localName.equals("condition")) {
+            if (inCurrentConditions)
+                data.setCurrentCondition(content.toString());
+        } else if(localName.equals("iconCode")) {
+            if(inCurrentConditions)
+                data.setIconCode(content.toString());
+        } else if(localName.equals("temperature")) {
+            if (inCurrentConditions) {
+                data.setCurrentTemperature(content.toString());
+            }
+        } else if(localName.equals("visibility")) {
+            if(inCurrentConditions)
+                data.setCurrentVisibility(content.toString());
+        } else if(localName.equals("speed")) {
+            if(inCurrentConditions) {
+                data.setCurrentWindSpeed(content.toString());
+            }
+        } else if(localName.equals("direction")) {
+            if(inCurrentConditions) {
+                data.setCurrentWindDirection(content.toString());
+                inCurrentConditions = false;
+            }
         }
     }
 
