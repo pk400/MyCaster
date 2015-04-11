@@ -7,5 +7,7 @@
     <string name="title_activity_get_dataset">GetDataset</string>
     <string name="title_activity_weekly_view">WeeklyViewActivity</string>
     <string name="title_activity_sun_rise_set">SunRiseSet</string>
+    <string name="title_activity_almanac">Almanac</string>
+    <string name="title_activity_day_view">DayView</string>
 
 </resources>

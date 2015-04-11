@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/bg"
-    android:id="@+id/rlsunriseset" >
+    android:id="@+id/rlalmanac" >
 
 
     <TextView
@@ -42,68 +42,10 @@
         android:layout_centerHorizontal="true" />
 
 
-
-
-
-
-
-    <TextView
-        android:id="@+id/sunrisetitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sunrise"
-        android:textStyle="bold"
-        android:textColor="#1A1A1A"
-        android:layout_below="@+id/location"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="41dp" />
-
-    <TextView
-            android:id="@+id/sunriseoccurred"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:textColor="#1A1A1A"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/sunrisetitle" />
-
-    <TextView
-        android:id="@+id/sunsettitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sunset"
-        android:textStyle="bold"
-        android:textColor="#1A1A1A"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-            android:id="@+id/sunsetoccurred"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:textColor="#1A1A1A"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/sunsettitle" />
-
-
-
-
-
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="← Almanac"
+        android:text="← Weekly View"
         android:id="@+id/swipeleft"
         android:textSize="15dp"
         android:textColor="#AA1A1A1A"
@@ -113,7 +55,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Day View \u2192"
+        android:text="Sunset/Sunrise \u2192"
         android:id="@+id/swiperight"
         android:textSize="15dp"
         android:textColor="#AA1A1A1A"
@@ -124,7 +66,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sunrise/Sunset"
+        android:text="Almanac"
         android:textAllCaps="true"
         android:id="@+id/swipeinfo"
         android:textColor="#AA1A1A1A"

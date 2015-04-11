@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,34 +19,51 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class WeeklyView extends Activity {
+public class Almanac extends Activity {
 
     XMLData data;
     RelativeLayout rl;
     TextView todaysDateTV, lastModifiedTV,locationTV;
-    OperationHandler oh;
+    int downx, upx;
 
-    public WeeklyView() {
+    public Almanac() {
         super();
-        oh = new OperationHandler();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weekly_view);
+        setContentView(R.layout.activity_almanac);
 
-        displayData();
-    }
-
-    private void displayData() {
         long timerStart = new Date().getTime();
+        rl = (RelativeLayout) findViewById(R.id.rlalmanac);
+        rl.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        downx = (int) event.getX();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        upx = (int) event.getX();
+                        if (upx > downx && (upx - downx) > 250) {
+                            // RIGHT
+                            Intent i = new Intent(getBaseContext(), WeeklyView.class);
+                            startActivity(i);
+                            finish();
+                        } else if (upx < downx && (downx - upx) > 250) {
+                            // LEFT
+                            Intent i = new Intent(getBaseContext(), SunRiseSet.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
 
         findViews();
-
-        oh.handleGestures(rl, this,
-                new Intent(getBaseContext(), DayView.class),
-                new Intent(getBaseContext(), Almanac.class));
 
         todaysDateTV.setText(new MCDate().getTodaysDate());
         locationTV.setText(MainActivity.data.getLocationName() + ", " + MainActivity.data.getLocationCountry());
@@ -55,7 +71,6 @@ public class WeeklyView extends Activity {
     }
 
     public void findViews() {
-        rl = (RelativeLayout) findViewById(R.id.rlweeklyview);
         todaysDateTV = (TextView) findViewById(R.id.todaysDate);
         lastModifiedTV  = (TextView) findViewById(R.id.lastModified);
         locationTV      = (TextView) findViewById(R.id.location);
@@ -89,5 +104,27 @@ public class WeeklyView extends Activity {
             }
         };
         timer.schedule(timerTask, 0, 30000);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_almanac, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -72,19 +72,20 @@
         android:textColor="#1A1A1A"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="20dp"
         android:layout_below="@+id/weathericon"
-        android:layout_toLeftOf="@+id/condition" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Condition"
-            android:id="@+id/condition"
-            android:textColor="#1A1A1A"
-            android:textSize="15dp"
-            android:layout_alignTop="@+id/conditionTitle"
-            android:layout_toRightOf="@+id/warnings"
-            android:layout_toEndOf="@+id/warnings" />
+        android:layout_toLeftOf="@+id/location"
+        android:layout_toStartOf="@+id/location" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Condition"
+        android:id="@+id/condition"
+        android:textColor="#1A1A1A"
+        android:textSize="15dp"
+        android:layout_above="@+id/temperatureTitle"
+        android:layout_alignLeft="@+id/temperature"
+        android:layout_alignStart="@+id/temperature" />
 
     <TextView
         android:id="@+id/temperatureTitle"
@@ -95,20 +96,19 @@
         android:textSize="15dp"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
         android:layout_below="@+id/conditionTitle"
         android:layout_alignRight="@+id/conditionTitle"
         android:layout_alignEnd="@+id/conditionTitle" />
-        <TextView
-            android:id="@+id/temperature"
-            android:text="Temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#1A1A1A"
-            android:textSize="15dp"
-            android:layout_alignTop="@+id/temperatureTitle"
-            android:layout_toRightOf="@+id/conditionTitle"
-            android:layout_toEndOf="@+id/conditionTitle" />
+    <TextView
+        android:id="@+id/temperature"
+        android:text="Temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#1A1A1A"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/temperatureTitle"
+        android:layout_toRightOf="@+id/conditionTitle"
+        android:layout_toEndOf="@+id/conditionTitle" />
     <TextView
         android:id="@+id/windspeedtitle"
         android:text="Wind Speed"
@@ -118,21 +118,20 @@
         android:textSize="15dp"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
         android:layout_centerVertical="true"
         android:layout_below="@+id/temperatureTitle"
         android:layout_alignRight="@+id/conditionTitle"
         android:layout_alignEnd="@+id/conditionTitle" />
-        <TextView
-            android:id="@+id/windspeed"
-            android:text="Wind Speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#1A1A1A"
-            android:textSize="15dp"
-            android:layout_alignTop="@+id/windspeedtitle"
-            android:layout_toRightOf="@+id/conditionTitle"
-            android:layout_toEndOf="@+id/conditionTitle" />
+    <TextView
+        android:id="@+id/windspeed"
+        android:text="Wind Speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#1A1A1A"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/windspeedtitle"
+        android:layout_toRightOf="@+id/conditionTitle"
+        android:layout_toEndOf="@+id/conditionTitle" />
 
     <TextView
         android:id="@+id/visibilitytitle"
@@ -143,21 +142,20 @@
         android:textSize="15dp"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
         android:layout_centerVertical="true"
         android:layout_below="@+id/windspeedtitle"
         android:layout_alignRight="@+id/conditionTitle"
         android:layout_alignEnd="@+id/conditionTitle" />
-        <TextView
-            android:id="@+id/visibility"
-            android:text="Visibility"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#1A1A1A"
-            android:textSize="15dp"
-            android:layout_alignTop="@+id/visibilitytitle"
-            android:layout_toRightOf="@+id/conditionTitle"
-            android:layout_toEndOf="@+id/conditionTitle" />
+    <TextView
+        android:id="@+id/visibility"
+        android:text="Visibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#1A1A1A"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/visibilitytitle"
+        android:layout_toRightOf="@+id/conditionTitle"
+        android:layout_toEndOf="@+id/conditionTitle" />
 
 
 
@@ -197,7 +195,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Swipe"
+        android:text="Day View"
         android:textAllCaps="true"
         android:id="@+id/swipeinfo"
         android:textColor="#AA1A1A1A"

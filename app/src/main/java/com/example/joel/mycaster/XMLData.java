@@ -7,6 +7,8 @@ import android.util.Log;
  */
 public class XMLData {
 
+
+
     // XML CREATION UTC
     private String xmlCreationStringUTC = null;
 
@@ -88,12 +90,12 @@ public class XMLData {
     private String forecast7Visibility      = null;
 
     // SUNRISE
-    private String sunriseUTC = null;
-    private String sunriseEDT = null;
+    private String sunriseHourUTC = null;
+    private String sunriseMinuteUTC = null;
 
     // SUNSET
-    private String sunsetUTC = null;
-    private String sunsetEDT = null;
+    private String sunsetHourUTC = null;
+    private String sunsetMinuteUTC = null;
 
 
     //private String variable = null;
@@ -168,8 +170,10 @@ public class XMLData {
     public void setForecast7Precipitation(String s)     { this.forecast7Precipitation = s; }
     public void setForecast7Visibility(String s)        { this.forecast7Visibility = s; }
 
-
-
+    public void setSunriseHourUTC(String s)             { this.sunriseHourUTC = s; }
+    public void setSunriseMinuteUTC(String s)           { this.sunriseMinuteUTC = s; }
+    public void setSunsetHourUTC(String s)              { this.sunsetHourUTC = s; }
+    public void setSunsetMinuteUTC(String s)            { this.sunsetMinuteUTC = s; }
 
 
 
@@ -243,4 +247,9 @@ public class XMLData {
     public String getForecast7Wind()            { return forecast7Wind; }
     public String getForecast7Precipitation()   { return forecast7Precipitation; }
     public String getForecast7Visibility()      { return forecast7Visibility; }
+
+    public String getSunriseHourUTC()           { return sunriseHourUTC; }
+    public String getSunriseMinuteUTC()         { return sunriseMinuteUTC; }
+    public String getSunsetHourUTC()            { return sunsetHourUTC; }
+    public String getSunsetMinuteUTC()          { return sunsetMinuteUTC; }
 }

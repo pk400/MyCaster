@@ -14,11 +14,20 @@ public class XMLHandler extends DefaultHandler {
     XMLData data;
     StringBuilder content;
     Boolean inDateTimeUTC, inDateTimeEDT, inLocation, inWarnings, inCurrentConditions,
-            inForecastGroup, inSunrise, inSunset;
+            inForecastGroup, inRiseSet, inSunrise, inSunset;
 
     public XMLHandler() {
         data = new XMLData();
         content = new StringBuilder();
+        inDateTimeUTC = false;
+        inDateTimeEDT = false;
+        inLocation = false;
+        inWarnings = false;
+        inCurrentConditions = false;
+        inForecastGroup = false;
+        inRiseSet = false;
+        inSunrise = false;
+        inSunset = false;
     }
 
     @Override
@@ -27,10 +36,14 @@ public class XMLHandler extends DefaultHandler {
         content = new StringBuilder();
 
         if(localName.equals("dateTime")) {
-            if(attributes.getValue("zone").equals("UTC")) {
+            if(attributes.getValue("name").equals("xmlCreation") && attributes.getValue("zone").equals("UTC")) {
                 inDateTimeUTC = true;
-            } else if(attributes.getValue("zone").equals("EDT")) {
+            } else if(attributes.getValue("name").equals("xmlCreation") && attributes.getValue("zone").equals("EDT")) {
                 inDateTimeEDT = true;
+            } else if(attributes.getValue("name").equals("sunrise") && attributes.getValue("zone").equals("UTC")) {
+                inSunrise = true;
+            } else if(attributes.getValue("name").equals("sunset") && attributes.getValue("zone").equals("UTC")) {
+                inSunset = true;
             }
         } else if(localName.equals("location")) {
             inLocation = true;
@@ -40,9 +53,7 @@ public class XMLHandler extends DefaultHandler {
             inWarnings = true;
         } else if(localName.equals("currentConditions")) {
             inCurrentConditions = true;
-        } else if(localName.equals("forecastGroup")) {
-            inForecastGroup = true;
-        } // DO SUNRISET
+        }
     }
 
     @Override
@@ -57,31 +68,26 @@ public class XMLHandler extends DefaultHandler {
                 data.setXmlCreationStringEDT(content.toString());
                 inDateTimeEDT = false;
             }
+        // LOCATION
         } else if(localName.equals("continent")) {
-            if(inLocation) {
+            if(inLocation)
                 data.setLocationContinent(content.toString());
-            }
         } else if(localName.equals("country")) {
-            if(inLocation) {
+            if(inLocation)
                 data.setLocationCountry(content.toString());
-            }
         } else if(localName.equals("province")) {
-            if(inLocation) {
+            if(inLocation)
                 data.setLocationProvince(content.toString());
-            }
         } else if(localName.equals("name")) {
-            if(inLocation) {
+            if(inLocation)
                 data.setLocationName(content.toString());
-            }
         } else if(localName.equals("region")) {
             if(inLocation) {
                 data.setLocationRegion(content.toString());
                 inLocation = false;
             }
-        }
-
-
-        if(localName.equals("condition")) {
+        // CURRENT CONDITION
+        } else if(localName.equals("condition")) {
             if (inCurrentConditions)
                 data.setCurrentCondition(content.toString());
         } else if(localName.equals("iconCode")) {
@@ -102,6 +108,21 @@ public class XMLHandler extends DefaultHandler {
             if(inCurrentConditions) {
                 data.setCurrentWindDirection(content.toString());
                 inCurrentConditions = false;
+            }
+        // SUNRISE/SUNSET
+        } else if(localName.equals("hour")) {
+            if(inSunrise)
+                data.setSunriseHourUTC(content.toString());
+            if(inSunset)
+                data.setSunsetHourUTC(content.toString());
+        } else if(localName.equals("minute")) {
+            if(inSunrise) {
+                data.setSunriseMinuteUTC(content.toString());
+                inSunrise = false;
+            }
+            if(inSunset) {
+                data.setSunsetMinuteUTC(content.toString());
+                inSunset = false;
             }
         }
     }

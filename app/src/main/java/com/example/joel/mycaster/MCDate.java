@@ -19,31 +19,31 @@ public class MCDate {
 
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         switch(dayOfWeek) {
-            case Calendar.SATURDAY: todaysDateStr.append("Saturday");  break;
-            case Calendar.SUNDAY: todaysDateStr.append("Sunday");    break;
-            case Calendar.MONDAY: todaysDateStr.append("Monday");    break;
-            case Calendar.TUESDAY: todaysDateStr.append("Tuesday");   break;
-            case Calendar.WEDNESDAY: todaysDateStr.append("Wednesday"); break;
-            case Calendar.THURSDAY: todaysDateStr.append("Thursday");  break;
-            case Calendar.FRIDAY:   todaysDateStr.append("Friday");    break;
+            case Calendar.SATURDAY:     todaysDateStr.append("Saturday");  break;
+            case Calendar.SUNDAY:       todaysDateStr.append("Sunday");    break;
+            case Calendar.MONDAY:       todaysDateStr.append("Monday");    break;
+            case Calendar.TUESDAY:      todaysDateStr.append("Tuesday");   break;
+            case Calendar.WEDNESDAY:    todaysDateStr.append("Wednesday"); break;
+            case Calendar.THURSDAY:     todaysDateStr.append("Thursday");  break;
+            case Calendar.FRIDAY:       todaysDateStr.append("Friday");    break;
         }
 
         todaysDateStr.append(", ");
 
         int month = c.get(Calendar.MONTH);
         switch(month) {
-            case 0:  todaysDateStr.append("January");   break;
-            case 1:  todaysDateStr.append("February");  break;
-            case 2:  todaysDateStr.append("March");     break;
-            case 3:  todaysDateStr.append("April");     break;
-            case 4:  todaysDateStr.append("May");       break;
-            case 5:  todaysDateStr.append("June");      break;
-            case 6:  todaysDateStr.append("July");      break;
-            case 7:  todaysDateStr.append("August");    break;
-            case 8:  todaysDateStr.append("September"); break;
-            case 9:  todaysDateStr.append("October");   break;
-            case 10: todaysDateStr.append("November");  break;
-            case 11: todaysDateStr.append("December");  break;
+            case Calendar.JANUARY:      todaysDateStr.append("January");   break;
+            case Calendar.FEBRUARY:     todaysDateStr.append("February");  break;
+            case Calendar.MARCH:        todaysDateStr.append("March");     break;
+            case Calendar.APRIL:        todaysDateStr.append("April");     break;
+            case Calendar.MAY:          todaysDateStr.append("May");       break;
+            case Calendar.JUNE:         todaysDateStr.append("June");      break;
+            case Calendar.JULY:         todaysDateStr.append("July");      break;
+            case Calendar.AUGUST:       todaysDateStr.append("August");    break;
+            case Calendar.SEPTEMBER:    todaysDateStr.append("September"); break;
+            case Calendar.OCTOBER:      todaysDateStr.append("October");   break;
+            case Calendar.NOVEMBER:     todaysDateStr.append("November");  break;
+            case Calendar.DECEMBER:     todaysDateStr.append("December");  break;
         }
         todaysDateStr.append(" " + c.get(Calendar.DATE));
         todaysDateStr.append(", " + c.get(Calendar.YEAR));

@@ -28,6 +28,14 @@
             android:name=".SunRiseSet"
             android:label="@string/title_activity_sun_rise_set" >
         </activity>
+        <activity
+            android:name=".Almanac"
+            android:label="@string/title_activity_almanac" >
+        </activity>
+        <activity
+            android:name=".DayView"
+            android:label="@string/title_activity_day_view" >
+        </activity>
     </application>
 
 </manifest>
