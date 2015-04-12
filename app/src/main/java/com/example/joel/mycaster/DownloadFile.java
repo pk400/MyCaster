@@ -54,43 +54,4 @@ public class DownloadFile extends AsyncTask<String, String, String> {
         }
         return null;
     }
-
-    /*@Override
-    protected String doInBackground(String... params) {
-        int count;
-
-        URL url = null;
-        try {
-            url = new URL(params[0]);
-            URLConnection cxn = url.openConnection();
-            cxn.connect();
-
-            int lengthOfFile = cxn.getContentLength();
-
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/dataset";
-            File dir = new File(path);
-
-            InputStream in = new BufferedInputStream(url.openStream());
-            OutputStream out = new FileOutputStream(dir + "/test.xml");
-
-            byte data[] = new byte[1024];
-
-            long total = 0;
-
-            while ((count = in.read(data)) != -1) {
-                total += count;
-                publishProgress(""+(int)((total*100)/lengthOfFile));
-                out.write(data, 0, count);
-            }
-
-            out.flush();
-            out.close();
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }*/
-
 }
