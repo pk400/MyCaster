@@ -3,6 +3,7 @@ package com.example.joel.mycaster;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -21,9 +22,13 @@ import android.widget.ListView;
 import org.xml.sax.InputSource;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,14 +45,14 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends Activity {
 
-    private static String UserLocation = null;
-    private static String UserLocationCode = null;
-    private static String UserLocationProvince = null;
+    private static String UserLocation          = null;
+    private static String UserLocationCode      = null;
+    private static String UserLocationProvince  = null;
 
     private static String baseurl   = "http://dd.weather.gc.ca/citypage_weather/xml";
     private static File xmldir      = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/dataset");
-    private static File xmlfile     = new File(xmldir + "/" + UserLocationCode + ".xml");
     private static File siteList    = new File(xmldir + "/siteList.xml");
+    private static File user_config = new File(xmldir + "/user_config");
     private static File locationsPath   = new File(xmldir + "/locations.sqlite");
 
     public static List<LocationXMLData> locData;
@@ -62,22 +67,36 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //if(!siteList.exists()) {
+        if(!siteList.exists()) {
             new DownloadData().execute("/siteList.xml");
-        //} //else {
-            //parseData(ParseType.LOCATION_DATA);
-        //}
+        } else if(siteList.exists() && user_config.exists()) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(user_config));
 
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, countries);
-        AutoCompleteTextView enterRegion = (AutoCompleteTextView) findViewById(R.id.regionfinder);
-        enterRegion.setAdapter(adapter);*/
+                UserLocation = br.readLine();
+                UserLocationProvince = br.readLine();
+                UserLocationCode = br.readLine();
 
-/*
-        ListView lv = (ListView) findViewById(R.id.selectregion);
+                br.close();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
 
-        ArrayAdapter<LocationXMLData> adapter = new ArrayAdapter<LocationXMLData>(this, android.R.layout.simple_list_item_1, locData);
-        lv.setAdapter(adapter);
-        registerForContextMenu(lv);*/
+            String wdata = null;
+            File[] listOfFiles = xmldir.listFiles();
+            for (int i = 0; i < listOfFiles.length; i++) {
+                wdata = listOfFiles[i].getName();
+                if (wdata.startsWith("s") && wdata.endsWith("_e.xml")) {
+                    parseData(ParseType.WEATHER_DATA);
+
+                    Intent j = new Intent(getBaseContext(), DayView.class);
+                    startActivity(j);
+                    finish();
+                } else if(wdata == null) {
+                    new DownloadData().execute("/" + UserLocationProvince + "/" + UserLocationCode + ".xml");
+                }
+            }
+        }
 
         //new DownloadData().execute("/data.xml");
     }
@@ -95,7 +114,12 @@ public class MainActivity extends Activity {
                     xmldir.mkdirs();
                 }
 
-                URL url = new URL(baseurl + params[0]);
+                URL url;
+                if(params[0].equals("/siteList.xml")) {
+                    url = new URL(baseurl + params[0]);
+                } else {
+                    url = new URL(baseurl + "/" + UserLocationProvince + "/" + UserLocationCode + "_e.xml");
+                }
                 URLConnection cxn = url.openConnection();
                 cxn.connect();
 
@@ -114,12 +138,14 @@ public class MainActivity extends Activity {
                     publishProgress("" + (int) ((total * 100) / lengthOfFile));
                     out.write(data, 0, count);
                 }
+
                 out.flush();
                 out.close();
                 in.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             return params[0];
         }
 
@@ -134,18 +160,18 @@ public class MainActivity extends Activity {
             super.onPostExecute(s);
             dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
 
-            if(s.equals("/siteList.xml"))
-                parseData(ParseType.LOCATION_DATA);
-            else {
-                parseData(ParseType.WEATHER_DATA);
-                Intent i = new Intent(getBaseContext(), DayView.class);
-                startActivity(i);
-                finish();
-            }
 
-            if(!locationsPath.exists()) {
-                for (LocationXMLData x : locData) {
-                    db.addLocation(x);
+            Log.v("I AM HERE", "YES");
+            String wdata = null;
+            File[] listOfFiles = xmldir.listFiles();
+            for (int i = 0; i < listOfFiles.length; i++) {
+                wdata = listOfFiles[i].getName();
+                if (wdata.startsWith("s") && wdata.endsWith("_e.xml")) {
+                    parseData(ParseType.WEATHER_DATA);
+
+                    Intent j = new Intent(getBaseContext(), DayView.class);
+                    startActivity(j);
+                    finish();
                 }
             }
 
@@ -158,10 +184,6 @@ public class MainActivity extends Activity {
                         + " , NAMEEN: " + d.getNameEN()
                         + " , NAMEFR: " + d.getNameFR()
                         + " , PROVINCE: " + d.getProvinceCode();*/
-                String log = "Name: " + d.getNameEN();
-                Log.d("STUFF", log);
-
-                //locNames[j++] = d.getNameEN();
                 locNames.add(d.getNameEN());
             }
 
@@ -183,12 +205,65 @@ public class MainActivity extends Activity {
                     }
                 }
             });
+
             regionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.v("TAG: ", UserLocation + " " + UserLocationCode + " " + UserLocationProvince);
-                    new DownloadData().execute("/" + UserLocationCode + ".xml");
-                    parseData(ParseType.LOCATION_DATA);
+                    /*try {
+                        if (!xmldir.exists()) {
+                            xmldir.mkdirs();
+                        }
+
+                        URL url;
+                        if(params[0].equals("/siteList.xml")) {
+                            url = new URL(baseurl + params[0]);
+                        } else {
+                            url = new URL(baseurl + "/" + UserLocationProvince + "/" + UserLocationCode + "_e.xml");
+                        }
+                        URLConnection cxn = url.openConnection();
+                        cxn.connect();
+
+                        int lengthOfFile = cxn.getContentLength();
+                        File file = new File(xmldir, params[0]);
+
+                        InputStream in = new BufferedInputStream(url.openStream());
+                        OutputStream out = new FileOutputStream(file);
+
+                        byte data[] = new byte[1024];
+
+                        long total = 0;
+                        int count;
+                        while ((count = in.read(data)) != -1) {
+                            total += count;
+                            publishProgress("" + (int) ((total * 100) / lengthOfFile));
+                            out.write(data, 0, count);
+                        }
+
+                        out.flush();
+                        out.close();
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+                    try {
+                        if (!user_config.exists()) {
+                            user_config.createNewFile();
+                        }
+
+                        FileWriter writer = new FileWriter(user_config);
+                        writer.append(UserLocation + "\n");
+                        writer.append(UserLocationProvince + "\n");
+                        writer.append(UserLocationCode + "\n");
+                        writer.flush();
+                        writer.close();
+                    } catch(IOException e) {
+                        e.printStackTrace();
+                    }
+                    parseData(ParseType.WEATHER_DATA);
+
+                    Intent i = new Intent(getBaseContext(), DayView.class);
+                    startActivity(i);
+                    finish();
                 }
             });
         }
@@ -235,7 +310,7 @@ public class MainActivity extends Activity {
             } else {
                 // Weather data
                 XMLHandler handler = new XMLHandler();
-                sp.parse(xmlfile, handler);
+                sp.parse(new File(xmldir + "/" + UserLocationCode + "_e.xml"), handler);
 
                 data = handler.getXMLData();
             }
