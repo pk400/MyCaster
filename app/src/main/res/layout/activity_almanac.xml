@@ -72,4 +72,107 @@
         android:textColor="#AA1A1A1A"
         android:layout_alignBottom="@+id/swipeleft"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/extrememax"
+        android:text="Medium Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#AA1A1A1A"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/location"
+        android:layout_alignRight="@+id/swipeinfo"
+        android:layout_alignEnd="@+id/swipeinfo"
+        android:layout_marginRight="37dp"
+        android:layout_marginEnd="37dp" />
+
+    <TextView
+        android:id="@+id/extrememin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/extrememax"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/normalmax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/extrememin"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/normalmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/normalmax"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/normalmean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/normalmin"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/extremerainfall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/normalmean"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/extremesnowfall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/extremerainfall"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/extremeprecipitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/extremesnowfall"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/extremesnowonground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/extremeprecipitation"
+        android:layout_alignLeft="@+id/extrememax"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

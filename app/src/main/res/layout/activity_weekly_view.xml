@@ -72,4 +72,182 @@
         android:textColor="#AA1A1A1A"
         android:layout_alignBottom="@+id/swipeleft"
         android:layout_centerHorizontal="true" />
+
+
+
+
+    <TextView
+        android:id="@+id/day1"
+        android:text="MONDAY"
+        android:textColor="#AA1A1A1A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_above="@+id/day1icon"
+        android:layout_alignLeft="@+id/day1icon"
+        android:layout_alignStart="@+id/day1icon" />
+    <TextView
+        android:id="@+id/day2"
+        android:text="MONDAY"
+        android:textColor="#AA1A1A1A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/location"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp" />
+    <TextView
+        android:id="@+id/day3"
+        android:text="MONDAY"
+        android:textColor="#AA1A1A1A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_alignTop="@+id/day2"
+        android:layout_alignRight="@+id/day3icon"
+        android:layout_alignEnd="@+id/day3icon" />
+    <TextView
+        android:id="@+id/day4"
+        android:text="MONDAY"
+        android:textColor="#AA1A1A1A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/day4icon"
+        android:layout_alignStart="@+id/day4icon" />
+    <TextView
+        android:id="@+id/day5"
+        android:text="MONDAY"
+        android:textColor="#AA1A1A1A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_alignTop="@+id/day4"
+        android:layout_alignLeft="@+id/day5icon"
+        android:layout_alignStart="@+id/day5icon" />
+
+    <TextView
+        android:id="@+id/day1c"
+        android:text="condition"
+        android:maxWidth="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/day1icon"
+        android:layout_alignLeft="@+id/day1"
+        android:layout_alignStart="@+id/day1" />
+    <TextView
+        android:id="@+id/day2c"
+        android:text="condition"
+        android:maxWidth="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/day3icon"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/day3c"
+        android:text="condition"
+        android:maxWidth="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#AA1A1A1A"
+        android:layout_alignTop="@+id/day2c"
+        android:layout_alignLeft="@+id/day3"
+        android:layout_alignStart="@+id/day3" />
+    <TextView
+        android:id="@+id/day4c"
+        android:text="condition"
+        android:maxWidth="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#AA1A1A1A"
+        android:layout_below="@+id/day4icon"
+        android:layout_alignLeft="@+id/day4"
+        android:layout_alignStart="@+id/day4" />
+    <TextView
+        android:id="@+id/day5c"
+        android:text="condition"
+        android:maxWidth="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#AA1A1A1A"
+        android:layout_alignTop="@+id/day4c"
+        android:layout_alignLeft="@+id/day5"
+        android:layout_alignStart="@+id/day5" />
+
+    <ImageView
+        android:id="@+id/day1icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="65dp"
+        android:minHeight="65dp"
+        android:maxHeight="65dp"
+        android:maxWidth="65dp"
+        android:layout_marginRight="50dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_alignTop="@+id/day2icon"
+        android:layout_toLeftOf="@+id/day2icon"
+        android:layout_toStartOf="@+id/day2icon" />
+    <ImageView
+        android:id="@+id/day2icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="65dp"
+        android:minHeight="65dp"
+        android:maxHeight="65dp"
+        android:maxWidth="65dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_above="@+id/day2c"
+        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:id="@+id/day3icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="65dp"
+        android:minHeight="65dp"
+        android:maxHeight="65dp"
+        android:maxWidth="65dp"
+        android:layout_marginLeft="50dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/day2"
+        android:layout_toRightOf="@+id/day2c"
+        android:layout_toEndOf="@+id/day2c" />
+    <ImageView
+        android:id="@+id/day4icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="65dp"
+        android:minHeight="65dp"
+        android:maxHeight="65dp"
+        android:maxWidth="65dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/day4"
+        android:layout_alignLeft="@+id/day1c"
+        android:layout_alignStart="@+id/day1c" />
+    <ImageView
+        android:id="@+id/day5icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="65dp"
+        android:minHeight="65dp"
+        android:maxHeight="65dp"
+        android:maxWidth="65dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_above="@+id/day5c"
+        android:layout_alignRight="@+id/day3c"
+        android:layout_alignEnd="@+id/day3c" />
+
+
 </RelativeLayout>

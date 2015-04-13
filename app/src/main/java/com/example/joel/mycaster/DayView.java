@@ -91,7 +91,7 @@ public class DayView extends Activity {
         switch(MainActivity.data.getIconCode()) {
             case "0": case "30":
                 weatherIconIV.setImageResource(R.drawable.sunny); break;
-            /*case "01": case "31":
+            case "01": case "31":
                 weatherIconIV.setImageResource(R.drawable.mainly_sunny); break;
             case "02": case "32":
                 weatherIconIV.setImageResource(R.drawable.partly_cloudy); break;
@@ -120,9 +120,7 @@ public class DayView extends Activity {
             case "23": case "24":
                 weatherIconIV.setImageResource(R.drawable.fog); break;
             default:
-                weatherIconIV.setImageResource(R.drawable.warnings); break;*/
-            default:
-                weatherIconIV.setImageResource(R.drawable.sunny); break;
+                weatherIconIV.setImageResource(R.drawable.warnings); break;
         }
 
 

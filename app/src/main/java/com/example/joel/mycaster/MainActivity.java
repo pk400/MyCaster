@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
 
     private static String baseurl   = "http://dd.weather.gc.ca/citypage_weather/xml";
     private static File xmldir      = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/dataset");
+    private static File xmlProvDir  = new File(xmldir + "/" + UserLocationProvince + "/");
     private static File siteList    = new File(xmldir + "/siteList.xml");
     private static File user_config = new File(xmldir + "/user_config");
     private static File locationsPath   = new File(xmldir + "/locations.sqlite");
@@ -61,13 +62,17 @@ public class MainActivity extends Activity {
     private ProgressDialog pd;
     private enum ParseType { LOCATION_DATA, WEATHER_DATA }
     private DBHandler db = new DBHandler(this);
+    ArrayAdapter<String> adapter;
+    AutoCompleteTextView enterRegion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!siteList.exists()) {
+        new DownloadData().execute("/siteList.xml");
+
+        /*if(!siteList.exists()) {
             new DownloadData().execute("/siteList.xml");
         } else if(siteList.exists() && user_config.exists()) {
             try {
@@ -87,6 +92,7 @@ public class MainActivity extends Activity {
             for (int i = 0; i < listOfFiles.length; i++) {
                 wdata = listOfFiles[i].getName();
                 if (wdata.startsWith("s") && wdata.endsWith("_e.xml")) {
+                    new DownloadData().onPostExecute("s");
                     parseData(ParseType.WEATHER_DATA);
 
                     Intent j = new Intent(getBaseContext(), DayView.class);
@@ -96,7 +102,7 @@ public class MainActivity extends Activity {
                     new DownloadData().execute("/" + UserLocationProvince + "/" + UserLocationCode + ".xml");
                 }
             }
-        }
+        }*/
 
         //new DownloadData().execute("/data.xml");
     }
@@ -160,18 +166,19 @@ public class MainActivity extends Activity {
             super.onPostExecute(s);
             dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
 
+            if(!s.equals("/siteList.xml")) {
+                parseData(ParseType.WEATHER_DATA);
 
-            Log.v("I AM HERE", "YES");
-            String wdata = null;
-            File[] listOfFiles = xmldir.listFiles();
-            for (int i = 0; i < listOfFiles.length; i++) {
-                wdata = listOfFiles[i].getName();
-                if (wdata.startsWith("s") && wdata.endsWith("_e.xml")) {
-                    parseData(ParseType.WEATHER_DATA);
+                Intent i = new Intent(getBaseContext(), DayView.class);
+                startActivity(i);
+                finish();
+            } else {
+                parseData(ParseType.LOCATION_DATA);
+            }
 
-                    Intent j = new Intent(getBaseContext(), DayView.class);
-                    startActivity(j);
-                    finish();
+            if(db.getLocationCount() < 1) {
+                for (LocationXMLData d : locData) {
+                    db.addLocation(d);
                 }
             }
 
@@ -179,16 +186,11 @@ public class MainActivity extends Activity {
             List<String> locNames = new ArrayList<String>();
 
             for(LocationXMLData d : dbLocationData) {
-                /*String log = "ID: " + d.getID()
-                        + " , CODE: " + d.getCode()
-                        + " , NAMEEN: " + d.getNameEN()
-                        + " , NAMEFR: " + d.getNameFR()
-                        + " , PROVINCE: " + d.getProvinceCode();*/
                 locNames.add(d.getNameEN());
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_dropdown_item_1line, locNames);
-            AutoCompleteTextView enterRegion = (AutoCompleteTextView) findViewById(R.id.regionfinder);
+            adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_dropdown_item_1line, locNames);
+            enterRegion = (AutoCompleteTextView) findViewById(R.id.regionfinder);
             enterRegion.setAdapter(adapter);
             final Button regionBtn = (Button) findViewById(R.id.regionbutton);
             enterRegion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -209,42 +211,6 @@ public class MainActivity extends Activity {
             regionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*try {
-                        if (!xmldir.exists()) {
-                            xmldir.mkdirs();
-                        }
-
-                        URL url;
-                        if(params[0].equals("/siteList.xml")) {
-                            url = new URL(baseurl + params[0]);
-                        } else {
-                            url = new URL(baseurl + "/" + UserLocationProvince + "/" + UserLocationCode + "_e.xml");
-                        }
-                        URLConnection cxn = url.openConnection();
-                        cxn.connect();
-
-                        int lengthOfFile = cxn.getContentLength();
-                        File file = new File(xmldir, params[0]);
-
-                        InputStream in = new BufferedInputStream(url.openStream());
-                        OutputStream out = new FileOutputStream(file);
-
-                        byte data[] = new byte[1024];
-
-                        long total = 0;
-                        int count;
-                        while ((count = in.read(data)) != -1) {
-                            total += count;
-                            publishProgress("" + (int) ((total * 100) / lengthOfFile));
-                            out.write(data, 0, count);
-                        }
-
-                        out.flush();
-                        out.close();
-                        in.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
                     try {
                         if (!user_config.exists()) {
                             user_config.createNewFile();
@@ -259,11 +225,7 @@ public class MainActivity extends Activity {
                     } catch(IOException e) {
                         e.printStackTrace();
                     }
-                    parseData(ParseType.WEATHER_DATA);
-
-                    Intent i = new Intent(getBaseContext(), DayView.class);
-                    startActivity(i);
-                    finish();
+                    new DownloadData().execute("/" + UserLocationCode + "_e.xml");
                 }
             });
         }

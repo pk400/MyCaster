@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,13 +22,13 @@ import java.util.TimerTask;
 
 public class Almanac extends Activity {
 
-    XMLData data;
     RelativeLayout rl;
     TextView todaysDateTV, lastModifiedTV,locationTV;
-    int downx, upx;
+    OperationHandler oh;
 
     public Almanac() {
         super();
+        oh = new OperationHandler();
     }
 
     @Override
@@ -35,42 +36,46 @@ public class Almanac extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_almanac);
 
+        displayData();
+    }
+
+    public void displayData() {
         long timerStart = new Date().getTime();
-        rl = (RelativeLayout) findViewById(R.id.rlalmanac);
-        rl.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        downx = (int) event.getX();
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        upx = (int) event.getX();
-                        if (upx > downx && (upx - downx) > 250) {
-                            // RIGHT
-                            Intent i = new Intent(getBaseContext(), WeeklyView.class);
-                            startActivity(i);
-                            finish();
-                        } else if (upx < downx && (downx - upx) > 250) {
-                            // LEFT
-                            Intent i = new Intent(getBaseContext(), SunRiseSet.class);
-                            startActivity(i);
-                            finish();
-                        }
-                        return true;
-                }
-                return false;
-            }
-        });
 
         findViews();
+
+        oh.handleGestures(rl, this,
+                new Intent(getBaseContext(), WeeklyView.class),
+                new Intent(getBaseContext(), SunRiseSet.class));
 
         todaysDateTV.setText(new MCDate().getTodaysDate());
         locationTV.setText(MainActivity.data.getLocationName() + ", " + MainActivity.data.getLocationCountry());
         checkTime(timerStart);
+
+        TextView extremeMax = (TextView) findViewById(R.id.extrememax);
+        TextView extremeMin = (TextView) findViewById(R.id.extrememin);
+        TextView normalMax = (TextView) findViewById(R.id.normalmax);
+        TextView normalMin = (TextView) findViewById(R.id.normalmin);
+        TextView normalMean = (TextView) findViewById(R.id.normalmean);
+        TextView extremeRainfall = (TextView) findViewById(R.id.extremerainfall);
+        TextView extremeSnowfall = (TextView) findViewById(R.id.extremesnowfall);
+        TextView extremePrecipitation = (TextView) findViewById(R.id.extremeprecipitation);
+        TextView extremeSnowOnGround = (TextView) findViewById(R.id.extremesnowonground);
+
+        Log.d("CHECKING ALMANAC", MainActivity.data.getExtremeMax());
+        extremeMax.setText("Extreme Max: " + MainActivity.data.getExtremeMax());
+        extremeMin.setText("Extreme Min: " + MainActivity.data.getExtremeMin());
+        normalMax.setText("Normal Max: " + MainActivity.data.getNormalMax());
+        normalMin.setText("Normal Min: " + MainActivity.data.getNormalMin());
+        normalMean.setText("Normal Mean: " + MainActivity.data.getNormalMean());
+        extremeRainfall.setText("Extreme Rainfall: " + MainActivity.data.getExtremeRainfall());
+        extremeSnowfall.setText("Extreme Snowfall: " + MainActivity.data.getExtremeSnowfall());
+        extremePrecipitation.setText("Extreme Precipitation: " + MainActivity.data.getExtremePrecipitation());
+        extremeSnowOnGround.setText("Extreme Snow On Ground: " + MainActivity.data.getExtremeSnowOnGround());
     }
 
     public void findViews() {
+        rl          = (RelativeLayout) findViewById(R.id.rlalmanac);
         todaysDateTV = (TextView) findViewById(R.id.todaysDate);
         lastModifiedTV  = (TextView) findViewById(R.id.lastModified);
         locationTV      = (TextView) findViewById(R.id.location);

@@ -72,10 +72,11 @@
         android:textColor="#1A1A1A"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/weathericon"
-        android:layout_toLeftOf="@+id/location"
-        android:layout_toStartOf="@+id/location" />
+        android:layout_toLeftOf="@+id/condition"
+        android:layout_toStartOf="@+id/condition" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,8 +85,7 @@
         android:textColor="#1A1A1A"
         android:textSize="15dp"
         android:layout_above="@+id/temperatureTitle"
-        android:layout_alignLeft="@+id/temperature"
-        android:layout_alignStart="@+id/temperature" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/temperatureTitle"
@@ -106,9 +106,9 @@
         android:layout_height="wrap_content"
         android:textColor="#1A1A1A"
         android:textSize="15dp"
-        android:layout_alignTop="@+id/temperatureTitle"
-        android:layout_toRightOf="@+id/conditionTitle"
-        android:layout_toEndOf="@+id/conditionTitle" />
+        android:layout_above="@+id/windspeedtitle"
+        android:layout_alignLeft="@+id/condition"
+        android:layout_alignStart="@+id/condition" />
     <TextView
         android:id="@+id/windspeedtitle"
         android:text="Wind Speed"
@@ -129,9 +129,9 @@
         android:layout_height="wrap_content"
         android:textColor="#1A1A1A"
         android:textSize="15dp"
-        android:layout_alignTop="@+id/windspeedtitle"
-        android:layout_toRightOf="@+id/conditionTitle"
-        android:layout_toEndOf="@+id/conditionTitle" />
+        android:layout_above="@+id/visibilitytitle"
+        android:layout_alignLeft="@+id/temperature"
+        android:layout_alignStart="@+id/temperature" />
 
     <TextView
         android:id="@+id/visibilitytitle"
@@ -153,9 +153,10 @@
         android:layout_height="wrap_content"
         android:textColor="#1A1A1A"
         android:textSize="15dp"
+        android:layout_below="@+id/windspeed"
         android:layout_alignTop="@+id/visibilitytitle"
-        android:layout_toRightOf="@+id/conditionTitle"
-        android:layout_toEndOf="@+id/conditionTitle" />
+        android:layout_alignLeft="@+id/temperature"
+        android:layout_alignStart="@+id/temperature"/>
 
 
 

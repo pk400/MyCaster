@@ -79,7 +79,8 @@
         android:text="Sunset"
         android:textStyle="bold"
         android:textColor="#1A1A1A"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/sunriseoccurred"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

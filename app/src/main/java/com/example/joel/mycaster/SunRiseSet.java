@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,8 +53,18 @@ public class SunRiseSet extends Activity {
         locationTV.setText(MainActivity.data.getLocationName() + ", " + MainActivity.data.getLocationCountry());
         checkTime(timerStart);
 
-        sunriseOCTV.setText("Occurred at: " + MainActivity.data.getSunriseHourUTC() + ":" + MainActivity.data.getSunriseMinuteUTC());
-        sunsetOCTV.setText("Occurred at: " + MainActivity.data.getSunsetHourUTC() + ":" + MainActivity.data.getSunsetMinuteUTC());
+        SimpleDateFormat format1 = new SimpleDateFormat("hhmm");
+        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+        format2.setTimeZone(TimeZone.getTimeZone("EST"));
+        String newRise = null;
+        try {
+            Date rise = format1.parse(MainActivity.data.getSunriseHourUTC() + MainActivity.data.getSunriseMinuteUTC());
+            newRise = format2.format(rise);
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        sunriseOCTV.setText("Expected: " + newRise);
+        sunsetOCTV.setText("Expected: " + MainActivity.data.getSunsetHourUTC() + ":" + MainActivity.data.getSunsetMinuteUTC());
     }
 
     public void findViews() {
